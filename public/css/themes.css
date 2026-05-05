@@ -1,0 +1,56 @@
+/* =============================================================
+   THEME SYSTEM — three switchable palettes via body class
+   Tokens are CSS custom properties so transitions are smooth.
+   ============================================================= */
+
+:root {
+  --radius: 12px;
+  --maxw: 1200px;
+  --transition: 250ms ease;
+  --font-sans: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Default theme — Deep navy + electric teal */
+.theme-default {
+  --color-bg: #0A192F;
+  --color-bg-soft: #112240;
+  --color-surface: #112240;
+  --color-border: rgba(100, 255, 218, 0.12);
+  --color-text: #E6F1FF;
+  --color-text-muted: #8892B0;
+  --color-accent: #64FFDA;
+  --color-accent-soft: rgba(100, 255, 218, 0.12);
+  --color-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+  --color-nav-bg: rgba(10, 25, 47, 0.85);
+  color-scheme: dark;
+}
+
+/* Light theme */
+.theme-light {
+  --color-bg: #FFFFFF;
+  --color-bg-soft: #F4F6FA;
+  --color-surface: #FFFFFF;
+  --color-border: rgba(10, 25, 47, 0.10);
+  --color-text: #0A192F;
+  --color-text-muted: #4A5568;
+  --color-accent: #00B4D8;
+  --color-accent-soft: rgba(0, 180, 216, 0.10);
+  --color-shadow: 0 10px 30px -15px rgba(10, 25, 47, 0.18);
+  --color-nav-bg: rgba(255, 255, 255, 0.85);
+  color-scheme: light;
+}
+
+/* Dark theme — near-black with glowing accent */
+.theme-dark {
+  --color-bg: #0D0D0D;
+  --color-bg-soft: #161616;
+  --color-surface: #161616;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text: #F5F5F5;
+  --color-text-muted: #9A9A9A;
+  --color-accent: #64FFDA;
+  --color-accent-soft: rgba(100, 255, 218, 0.10);
+  --color-shadow: 0 10px 40px -10px rgba(100, 255, 218, 0.15);
+  --color-nav-bg: rgba(13, 13, 13, 0.85);
+  color-scheme: dark;
+}
