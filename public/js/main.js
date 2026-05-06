@@ -194,8 +194,8 @@ function initContactForm(form) {
       const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\n\n${message}\n\n— Sent from rafaeldelapaz.portfolio`
       );
-      const cc = encodeURIComponent('rafael.portfolio.copy@gmail.com');
-      const mailto = `mailto:delapazr0721@gmail.com?cc=${cc}&subject=${subject}&body=${body}`;
+      const cc = encodeURIComponent('delapazr0721@gmail.com');
+      const mailto = `mailto:delapazr07@gmail.com?cc=${cc}&subject=${subject}&body=${body}`;
       window.location.href = mailto;
 
       showToast('Message sent! Rafael will get back to you soon.');
