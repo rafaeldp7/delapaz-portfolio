@@ -164,44 +164,67 @@ function initParticles(canvas) {
 
 /* ---------- Contact form ---------- */
 function initContactForm(form) {
-  const toast = document.getElementById('toast');
-  const submitBtn = document.getElementById('cf-submit');
-  const label = submitBtn.querySelector('.btn-label');
+    const toast = document.getElementById('toast');
+    const submitBtn = document.getElementById('cf-submit');
+    const label = submitBtn.querySelector('.btn-label');
 
-  function showToast(msg) {
-    if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3500);
-  }
+    function showToast(msg) {
+        if (!toast) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        toast.textContent = msg;
+        toast.classList.add('show');
 
-    if (!name || !email || !message) { showToast('Please fill in all fields.'); return; }
-    if (!emailOk) { showToast('Please enter a valid email address.'); return; }
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3500);
+    }
 
-    // Loading state
-    submitBtn.disabled = true;
-    label.innerHTML = '<span class="spinner"></span>';
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    setTimeout(() => {
-      const subject = encodeURIComponent(`Portfolio message from ${name}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\n${message}\n\n— Sent from rafaeldelapaz.portfolio`
-      );
-      const cc = encodeURIComponent('delapazr0721@gmail.com');
-      const mailto = `mailto:delapazr07@gmail.com?cc=${cc}&subject=${subject}&body=${body}`;
-      window.location.href = mailto;
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
 
-      showToast('Message sent! Rafael will get back to you soon.');
-      form.reset();
-      submitBtn.disabled = false;
-      label.textContent = 'Send Message';
-    }, 1500);
-  });
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+        if (!name || !email || !message) {
+            showToast('Please fill in all fields.');
+            return;
+        }
+
+        if (!emailOk) {
+            showToast('Please enter a valid email address.');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        label.innerHTML = '<span class="spinner"></span>';
+
+        try {
+            const response = await fetch(
+                'https://formspree.io/f/xvkorzqk',
+                {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        Accept: 'application/json'
+                    }
+                }
+            );
+
+            if (response.ok) {
+                showToast('Message sent! Rafael will get back to you soon.');
+                form.reset();
+            } else {
+                showToast('Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            console.error(error);
+            showToast('Unable to send message. Please try again.');
+        }
+
+        submitBtn.disabled = false;
+        label.textContent = 'Send Message';
+    });
 }
